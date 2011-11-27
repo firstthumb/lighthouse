@@ -1,18 +1,5 @@
 package com.myor.android.geonames;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.web.client.RestTemplate;
-
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -20,7 +7,13 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.SimpleAdapter;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.web.client.RestTemplate;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.*;
 
 public class HttpGetActivity extends ListActivity {
 	private static final String TAG = "HttpGetActivity";
@@ -87,12 +80,12 @@ public class HttpGetActivity extends ListActivity {
 			stateMaps.add(map);
 		}
 
-		SimpleAdapter adapter = new SimpleAdapter(this, stateMaps,
-				R.layout.states_list_item,
-				new String[] { "name", "description" }, new int[] { R.id.name,
-						R.id.description });
+//		SimpleAdapter adapter = new SimpleAdapter(this, stateMaps,
+//				R.layout.states_list_item,
+//				new String[] { "name", "description" }, new int[] { R.id.name,
+//						R.id.description });
 
-		this.setListAdapter(adapter);
+//		this.setListAdapter(adapter);
 	}
 
 	private void showLoadingProgressDialog() {
