@@ -2,68 +2,27 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>net.javaci.android</groupId>
-	<version>1.0.0.BUILD-SNAPSHOT</version>
-	<artifactId>lighthouse-client</artifactId>
+	<groupId>net.javaci.lighthouse.android</groupId>
+	<artifactId>lighthouse-android-client</artifactId>
+	<version>1.0-SNAPSHOT</version>
 	<packaging>apk</packaging>
-	<name>lighthouse-client</name>
-	<url>http://www.javaci.net</url>
-
-	<organization>
-		<name>Javaci.Net</name>
-		<url>http://www.javaci.net</url>
-	</organization>
+	<name>lighthouse-android-client</name>
+	<url>http://www.ekocaman.com</url>
 
 	<properties>
-		<android-platform>7</android-platform>
-		<maven-android-plugin-version>2.8.3</maven-android-plugin-version>
-		<maven-compiler-plugin-version>2.3.2</maven-compiler-plugin-version>
-		<com.google.android-version>2.3.3</com.google.android-version>
-		<org.springframework.android-version>1.0.0.BUILD-SNAPSHOT</org.springframework.android-version>
-		<commons-httpclient-version>3.1</commons-httpclient-version>
-		<org.codehaus.jackson-version>1.6.2</org.codehaus.jackson-version>
+		<android-platform>17</android-platform>
+		<android-maven-plugin-version>3.5.0</android-maven-plugin-version>
+		<maven-compiler-plugin-version>3.0</maven-compiler-plugin-version>
+		<java-version>1.6</java-version>
+		<maven-eclipse-plugin-version>2.9</maven-eclipse-plugin-version>
+		<com.google.android-version>4.1.1.4</com.google.android-version>
+		<!-- Available Android versions: 1.5_r3, 1.5_r4, 1.6_r2, 2.1.2, 2.1_r1, 
+			2.2.1, 2.3.1, 2.3.3, 4.0.1.2, 4.1.1.4 -->
+		<org.springframework.android-version>1.0.1.RELEASE</org.springframework.android-version>
+		<com.fasterxml.jackson-version>2.1.2</com.fasterxml.jackson-version>
+		<com.google.code.gson-version>2.2.2</com.google.code.gson-version>
+		<org.simpleframework-version>2.6.9</org.simpleframework-version>
 	</properties>
-	
-	<pluginRepositories>
-        <pluginRepository>
-            <id>oss.sonatype.org-jayway-snapshots</id>
-            <name>Jayway OpenSource SNAPSHOTs on Sonatype.org</name>
-            <url>http://oss.sonatype.org/content/repositories/jayway-snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
-	<build>
-		<sourceDirectory>src</sourceDirectory>
-		<finalName>${project.artifactId}</finalName>
-		<plugins>
-	
-			<plugin>
-				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
-				<artifactId>maven-android-plugin</artifactId>
-				<version>${maven-android-plugin-version}</version>
-				<configuration>
-					<sdk>
-						<!-- This value is defined in ${user.home}/.m2/settings.xml -->
-						<path>C:\dev\tools\Android\android-sdk</path>
-						<platform>7</platform>
-					</sdk>
-					<emulator>
-						<avd>Android2.3.3-WGA800</avd>
-					</emulator>
-					<deleteConflictingFiles>true</deleteConflictingFiles>
-					<undeployBeforeDeploy>true</undeployBeforeDeploy>
-				</configuration>
-				<extensions>true</extensions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${maven-compiler-plugin-version}</version>
-			</plugin>
-		</plugins>
-	</build>
 
 	<dependencies>
 		<dependency>
@@ -77,36 +36,89 @@
 			<artifactId>spring-android-rest-template</artifactId>
 			<version>${org.springframework.android-version}</version>
 		</dependency>
+		
+		<!-- Jackson JSON Processor -->
 		<dependency>
-			<!-- Using jackson for json marshaling -->
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>${org.codehaus.jackson-version}</version>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${com.fasterxml.jackson-version}</version>
+		</dependency>
+		
+		<!-- Gson JSON Processor -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>${com.google.code.gson-version}</version>
+		</dependency>
+		
+		<!-- Simple XML Processor -->
+		<dependency>
+			<groupId>org.simpleframework</groupId>
+			<artifactId>simple-xml</artifactId>
+			<version>${org.simpleframework-version}</version>
+			<exclusions>
+				<!-- StAX is not available on Android -->
+				<exclusion>
+					<artifactId>stax</artifactId>
+					<groupId>stax</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>stax-api</artifactId>
+					<groupId>stax</groupId>
+				</exclusion>
+				<!-- Provided by Android -->
+				<exclusion>
+					<artifactId>xpp3</artifactId>
+					<groupId>xpp3</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 
 	<repositories>
-		<!-- For testing against latest Spring snapshots -->
 		<repository>
-			<id>org.springframework.maven.snapshot</id>
-			<name>Spring Maven Snapshot Repository</name>
-			<url>http://maven.springframework.org/snapshot</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<!-- For developing against latest Spring milestones -->
-		<repository>
-			<id>org.springframework.maven.milestone</id>
-			<name>Spring Maven Milestone Repository</name>
-			<url>http://maven.springframework.org/milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
+			<id>springsource-repo</id>
+			<name>SpringSpring Repository</name>
+			<url>http://repo.springsource.org/release</url>
 		</repository>
 	</repositories>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<sourceDirectory>src</sourceDirectory>
+		<plugins>
+			<plugin>
+				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+				<artifactId>android-maven-plugin</artifactId>
+				<version>${android-maven-plugin-version}</version>
+				<configuration>
+					<sdk>
+						<platform>${android-platform}</platform>
+					</sdk>
+					<deleteConflictingFiles>true</deleteConflictingFiles>
+					<undeployBeforeDeploy>true</undeployBeforeDeploy>
+				</configuration>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin-version}</version>
+				<configuration>
+					<source>${java-version}</source>
+					<target>${java-version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>${maven-eclipse-plugin-version}</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
