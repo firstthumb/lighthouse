@@ -1,7 +1,9 @@
 lighthouse-frontend/target/
 lighthouse-android-client/target/
+lighthouse-android-client/gen/**
 lighthouse-web/target/
 
+**.DS_Store
 **/.project
 **/.classpath
 **/*.iml
