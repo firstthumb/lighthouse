@@ -1,0 +1,9 @@
+lighthouse-frontend/target/
+lighthouse-android-client/target/
+lighthouse-web/target/
+
+**/.project
+**/.classpath
+**/*.iml
+**/*.ipr
+**/*.iws
