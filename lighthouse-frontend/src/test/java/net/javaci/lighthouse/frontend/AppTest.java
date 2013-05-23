@@ -1,4 +1,4 @@
-package net.javaci.lighthouse.server;
+package net.javaci.lighthouse.frontend;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

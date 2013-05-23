@@ -22,6 +22,7 @@
 		<com.fasterxml.jackson-version>2.1.2</com.fasterxml.jackson-version>
 		<com.google.code.gson-version>2.2.2</com.google.code.gson-version>
 		<org.simpleframework-version>2.6.9</org.simpleframework-version>
+        <android.sdk.path>/Users/ekocaman/dev/tools/android-sdk</android.sdk.path>
 	</properties>
 
 	<dependencies>

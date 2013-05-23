@@ -9,3 +9,9 @@ lighthouse-web/target/
 **/*.iml
 **/*.ipr
 **/*.iws
+
+**/.svn/**
+
+lighthouse-android-client/.settings/
+lighthouse-frontend/lighthouse-soapui-project.xml
+lighthouse-frontend/projectFilesBackup/
