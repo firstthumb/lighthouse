@@ -15,3 +15,7 @@ lighthouse-web/target/
 lighthouse-android-client/.settings/
 lighthouse-frontend/lighthouse-soapui-project.xml
 lighthouse-frontend/projectFilesBackup/
+
+lighthouse-node/.idea
+lighthouse-node/target
+lighthouse-node/*.iml
