@@ -1,5 +1,6 @@
 package net.javaci.lighthouse.node;
 
+import net.javaci.lighthouse.node.command.GetSystemTimeCommand;
 import net.javaci.lighthouse.node.server.MyPipelineFactory;
 import org.jboss.netty.bootstrap.ClientBootstrap;
 import org.jboss.netty.channel.*;
@@ -68,14 +69,14 @@ public class Client {
         System.out.println("--- CLIENT - Stopped.");
     }
 
-    public boolean sendMessage(String message) {
+    public boolean sendMessage(Object message) {
         if (this.connector.isConnected()) {
             // Append \n if it's not present, because of the frame delimiter
-            if (!message.endsWith("\n")) {
-                this.connector.write(message + '\n');
-            } else {
+//            if (!message.endsWith("\n")) {
+//                this.connector.write(message + '\n');
+//            } else {
                 this.connector.write(message);
-            }
+//            }
             return true;
         }
 
@@ -86,6 +87,6 @@ public class Client {
         Client client = new Client();
         client.start();
 
-        client.sendMessage("Message2");
+        client.sendMessage(new GetSystemTimeCommand());
     }
 }

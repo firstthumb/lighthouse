@@ -5,6 +5,9 @@ import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.ChannelPipelineFactory;
 import org.jboss.netty.channel.Channels;
 import org.jboss.netty.handler.codec.frame.DelimiterBasedFrameDecoder;
+import org.jboss.netty.handler.codec.serialization.ClassResolvers;
+import org.jboss.netty.handler.codec.serialization.ObjectDecoder;
+import org.jboss.netty.handler.codec.serialization.ObjectEncoder;
 import org.jboss.netty.handler.codec.string.StringDecoder;
 import org.jboss.netty.handler.codec.string.StringEncoder;
 import org.jboss.netty.handler.logging.LoggingHandler;
@@ -16,8 +19,8 @@ import sun.rmi.log.LogHandler;
  */
 public class MyPipelineFactory implements ChannelPipelineFactory {
     // stateless, singleton handler instances...re-used across connections
-    private static final ChannelHandler STR_ENCODER = new StringEncoder();
-    private static final ChannelHandler STR_DECODER = new StringDecoder();
+    private static final ChannelHandler STR_ENCODER = new ObjectEncoder();
+    private static final ChannelHandler STR_DECODER = new ObjectDecoder(ClassResolvers.weakCachingConcurrentResolver(null));
     private static final ChannelHandler APP_HANDLER = new MyServerHandler();
     private static final ChannelHandler LOG_HANDLER = new LoggingHandler();
 

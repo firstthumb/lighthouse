@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>net.javaci.lighthouse.plugin</groupId>
+        <groupId>net.javaci.lighthouse</groupId>
         <artifactId>lighthouse-plugin</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>

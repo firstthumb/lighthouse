@@ -1,12 +1,14 @@
 package net.javaci.lighthouse.node.server;
 
 import org.jboss.netty.channel.*;
+import org.jboss.netty.handler.codec.serialization.ObjectDecoder;
+import org.jboss.netty.handler.codec.serialization.ObjectEncoder;
 
 /**
  * User: ekocaman
  * Date: 5/27/13
  */
-public class MyServerHandler extends SimpleChannelUpstreamHandler {
+public class MyServerHandler extends SimpleChannelHandler {
 
     @Override
     public void handleUpstream(ChannelHandlerContext ctx, ChannelEvent e) throws Exception {
@@ -23,5 +25,11 @@ public class MyServerHandler extends SimpleChannelUpstreamHandler {
     public void channelClosed(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
         super.channelClosed(ctx, e);
         System.out.println("Closed");
+    }
+
+    @Override
+    public void channelOpen(ChannelHandlerContext ctx, ChannelStateEvent e) {
+//        e.getChannel().getPipeline().addFirst("decoder", new ObjectDecoder());
+//        e.getChannel().getPipeline().addAfter("decoder", "encoder", new ObjectEncoder());
     }
 }

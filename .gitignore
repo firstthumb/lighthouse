@@ -19,3 +19,11 @@ lighthouse-frontend/projectFilesBackup/
 lighthouse-node/.idea
 lighthouse-node/target
 lighthouse-node/*.iml
+
+lighthouse-plugin/lighthouse-plugin-api/lighthouse-api.iml
+lighthouse-plugin/lighthouse-plugin-api/lighthouse-api.iml
+lighthouse-plugin/lighthouse-plugin-impl/lighthouse-impl.iml
+
+lighthouse-plugin/lighthouse-plugin-impl/target/
+lighthouse-plugin/lighthouse-plugin-api/target/
+lighthouse-plugin/lighthouse-plugin-example/target/
