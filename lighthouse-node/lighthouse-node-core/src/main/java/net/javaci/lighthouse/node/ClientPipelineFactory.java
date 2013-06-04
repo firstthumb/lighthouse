@@ -1,6 +1,5 @@
 package net.javaci.lighthouse.node;
 
-import net.javaci.lighthouse.node.server.MyServerHandler;
 import org.jboss.netty.channel.ChannelHandler;
 import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.ChannelPipelineFactory;

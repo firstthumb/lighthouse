@@ -1,8 +1,6 @@
 package net.javaci.lighthouse.frontend.rest;
 
-import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.core.Response;
 
 /**
  * User: ekocaman
@@ -11,9 +9,9 @@ import javax.ws.rs.core.Response;
 @Path("/process")
 public class ProcessService {
 
-    @GET
-    @Path("/print")
-    public Response printMessage() {
-        return Response.status(200).entity("OK").build();
-    }
+//    @GET
+//    @Path("/print")
+//    public Response printMessage() {
+//        return Response.status(200).entity("OK").build();
+//    }
 }

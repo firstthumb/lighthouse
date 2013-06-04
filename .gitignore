@@ -24,6 +24,8 @@ lighthouse-plugin/lighthouse-plugin-impl/target/
 lighthouse-plugin/lighthouse-plugin-api/target/
 lighthouse-plugin/lighthouse-plugin-example/target/
 
+lighthouse-parent/projectFilesBackup/
+
 lighthouse-web/target/
 
 **.DS_Store

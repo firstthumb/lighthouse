@@ -1,8 +1,11 @@
 package net.javaci.lighthouse.frontend.server;
 
+import net.javaci.lighthouse.frontend.context.SpringApplicationContext;
+import net.javaci.lighthouse.frontend.model.ServerModel;
 import net.javaci.lighthouse.node.request.CommandRequest;
 import net.javaci.lighthouse.node.request.CommandType;
 import org.jboss.netty.channel.*;
+import org.springframework.data.mongodb.core.MongoOperations;
 
 /**
  * User: ekocaman
@@ -27,6 +30,15 @@ public class MyServerHandler extends SimpleChannelHandler {
     @Override
     public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
         System.out.println("I received message from CLIENT : " + e.getMessage());
+
+
+        MongoOperations mongoOperation = (MongoOperations)SpringApplicationContext.getBean("mongoTemplate");
+        ServerModel s = new ServerModel();
+        s.setId(1);
+        s.setName("Server1");
+        s.setDescription("Description1");
+        s.setIp("ServerIP1");
+        mongoOperation.save(s);
 //        System.out.println("Now sending back to the CLIENT : " + new Date().getTime());
 
 //        GetSystemTimeCommand command = (GetSystemTimeCommand)e.getMessage();

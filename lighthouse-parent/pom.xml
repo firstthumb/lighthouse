@@ -12,6 +12,7 @@
     <modules>
         <module>../lighthouse-plugin</module>
         <module>../lighthouse-node</module>
+        <module>../lighthouse-frontend</module>
     </modules>
 
     <properties>
