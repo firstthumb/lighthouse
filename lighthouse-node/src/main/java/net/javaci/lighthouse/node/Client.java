@@ -1,14 +1,13 @@
 package net.javaci.lighthouse.node;
 
 import net.javaci.lighthouse.node.command.GetSystemTimeCommand;
-import net.javaci.lighthouse.node.server.MyPipelineFactory;
 import org.jboss.netty.bootstrap.ClientBootstrap;
-import org.jboss.netty.channel.*;
+import org.jboss.netty.channel.Channel;
+import org.jboss.netty.channel.ChannelFactory;
+import org.jboss.netty.channel.ChannelFuture;
 import org.jboss.netty.channel.socket.nio.NioClientSocketChannelFactory;
-import org.jboss.netty.handler.codec.frame.DelimiterBasedFrameDecoder;
-import org.jboss.netty.handler.codec.frame.Delimiters;
-import org.jboss.netty.handler.codec.string.StringDecoder;
-import org.jboss.netty.handler.codec.string.StringEncoder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
 import java.util.Date;
@@ -20,6 +19,8 @@ import java.util.concurrent.Executors;
  * Date: 5/27/13
  */
 public class Client {
+    private static Logger logger = LoggerFactory.getLogger(Client.class);
+
     private ClientBootstrap bootstrap;
     private Channel connector;
 
@@ -65,7 +66,7 @@ public class Client {
 //            if (!message.endsWith("\n")) {
 //                this.connector.write(message + '\n');
 //            } else {
-                this.connector.write(message);
+            this.connector.write(message);
 //            }
             return true;
         }
@@ -77,12 +78,12 @@ public class Client {
         Client client = new Client();
         client.start();
 
-        client.sendMessage(new GetSystemTimeCommand("Starter"));
-
-        for (int i=0; i<10; i++) {
-            Thread.sleep(3000);
-            System.out.println("Message sent : " + new Date().getTime());
-            client.sendMessage(new GetSystemTimeCommand(i + ""));
-        }
+//        client.sendMessage(new GetSystemTimeCommand("Starter"));
+//
+//        for (int i = 0; i < 10; i++) {
+//            Thread.sleep(3000);
+//            System.out.println("Message sent : " + new Date().getTime());
+//            client.sendMessage(new GetSystemTimeCommand(i + ""));
+//        }
     }
 }

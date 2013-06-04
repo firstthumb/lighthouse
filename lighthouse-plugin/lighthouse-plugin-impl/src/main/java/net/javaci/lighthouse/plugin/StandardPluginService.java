@@ -1,5 +1,6 @@
 package net.javaci.lighthouse.plugin;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.ServiceLoader;
 import java.util.logging.Logger;
@@ -13,6 +14,9 @@ public class StandardPluginService implements PluginService {
     private static StandardPluginService pluginService;
     private ServiceLoader<ApplicationPlugin> serviceLoader;
     private Logger logger = Logger.getLogger(getClass().getName());
+
+    // TODO: some logical parameters
+    private HashMap<String, String> systemParameters = new HashMap<String, String>();
 
     private StandardPluginService() {
         //load all the classes in the classpath that have implemented the interface
@@ -38,7 +42,7 @@ public class StandardPluginService implements PluginService {
         while (iterator.hasNext()) {
             ApplicationPlugin plugin = iterator.next();
             logger.info("Initializing the plugin " + plugin.getName());
-            plugin.init();
+            plugin.init(systemParameters);
         }
     }
 }

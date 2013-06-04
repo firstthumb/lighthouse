@@ -2,6 +2,8 @@ package net.javaci.lighthouse.node.server;
 
 import net.javaci.lighthouse.node.command.GetSystemTimeCommand;
 import net.javaci.lighthouse.node.command.InitializePluginsCommand;
+import net.javaci.lighthouse.node.request.CommandRequest;
+import net.javaci.lighthouse.node.request.CommandType;
 import org.jboss.netty.channel.*;
 import org.jboss.netty.handler.codec.serialization.ObjectDecoder;
 import org.jboss.netty.handler.codec.serialization.ObjectEncoder;
@@ -23,21 +25,24 @@ public class MyServerHandler extends SimpleChannelHandler {
     public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
         super.channelConnected(ctx, e);
         System.out.println("Channel Connected");
+
+        CommandRequest request = new CommandRequest(CommandType.LIST_PLUGINS);
+        ctx.getChannel().write(request);
     }
 
     @Override
     public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
         System.out.println("I received message from CLIENT : " + e.getMessage());
-        System.out.println("Now sending back to the CLIENT : " + new Date().getTime());
+//        System.out.println("Now sending back to the CLIENT : " + new Date().getTime());
 
-        GetSystemTimeCommand command = (GetSystemTimeCommand)e.getMessage();
-
-        if (command.getMessage().equals("5")) {
-            ctx.getChannel().write(new InitializePluginsCommand("1"));
-        }
-        else {
-            ctx.getChannel().write(e.getMessage());
-        }
+//        GetSystemTimeCommand command = (GetSystemTimeCommand)e.getMessage();
+//
+//        if (command.getMessage().equals("5")) {
+//            ctx.getChannel().write(new InitializePluginsCommand("1"));
+//        }
+//        else {
+//            ctx.getChannel().write(e.getMessage());
+//        }
     }
 
     @Override

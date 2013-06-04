@@ -1,5 +1,6 @@
 package net.javaci.lighthouse.node.server;
 
+import net.javaci.lighthouse.node.HeartbeatHandler;
 import org.jboss.netty.channel.ChannelHandler;
 import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.ChannelPipelineFactory;
@@ -11,6 +12,9 @@ import org.jboss.netty.handler.codec.serialization.ObjectEncoder;
 import org.jboss.netty.handler.codec.string.StringDecoder;
 import org.jboss.netty.handler.codec.string.StringEncoder;
 import org.jboss.netty.handler.logging.LoggingHandler;
+import org.jboss.netty.handler.timeout.IdleStateHandler;
+import org.jboss.netty.util.HashedWheelTimer;
+import org.jboss.netty.util.Timer;
 import sun.rmi.log.LogHandler;
 
 /**
@@ -23,6 +27,9 @@ public class MyPipelineFactory implements ChannelPipelineFactory {
     private static final ChannelHandler STR_DECODER = new ObjectDecoder(ClassResolvers.weakCachingConcurrentResolver(null));
     private static final ChannelHandler APP_HANDLER = new MyServerHandler();
     private static final ChannelHandler LOG_HANDLER = new LoggingHandler();
+    private static final ChannelHandler HEART_BEAT = new HeartbeatHandler();
+    private static final Timer idleTimer = new HashedWheelTimer();
+    private static final ChannelHandler IDLE_HANDLER = new IdleStateHandler(idleTimer, 50, 50, 50);
 
     public ChannelPipeline getPipeline() throws Exception {
         // create default pipeline from static method
@@ -37,6 +44,8 @@ public class MyPipelineFactory implements ChannelPipelineFactory {
 //        pipeline.addLast("framer", new DelimiterBasedFrameDecoder(...));
 
         // add string encoder (downstream) /decoders (upstream)
+        pipeline.addLast("timeout", IDLE_HANDLER);
+//        pipeline.addLast("heartbeatHandler", HEART_BEAT);
         pipeline.addLast("decoder", STR_DECODER);
         pipeline.addLast("encoder", STR_ENCODER);
 

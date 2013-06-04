@@ -11,29 +11,27 @@ import java.util.HashMap;
  * User: ekocaman
  * Date: 5/23/13
  */
-public class SystemTimePlugin implements ApplicationPlugin {
+public class DirectoryListPlugin implements ApplicationPlugin {
 
     public String getName() {
-        return "SystemTimePlugin";
+        return "DirectoryListPlugin";
     }
 
     public void init(HashMap<String, String> params) {
-        System.out.println("Initialized SystemTimePlugin");
+        System.out.println("Initialized DirectoryListPlugin");
     }
 
     @Override
     public PluginResult execute(HashMap<String, String> params) {
         PluginResult result = new PluginResult();
 
-        Date currentDate = getCurrentTime();
+        result.setMessage("Files and Folders");
 
-        result.setMessage("Current Date : " + currentDate);
+        result.getValues().put("Folders", "");
+        result.getValues().put("Files", "");
+
         result.setResultType(PluginResultType.SUCCESS);
 
         return result;
-    }
-
-    private Date getCurrentTime() {
-        return new Date();
     }
 }

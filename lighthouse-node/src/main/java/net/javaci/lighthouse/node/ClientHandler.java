@@ -1,19 +1,19 @@
 package net.javaci.lighthouse.node;
 
-import net.javaci.lighthouse.node.command.GetSystemTimeCommand;
-import net.javaci.lighthouse.node.command.InitializePluginsCommand;
-import net.javaci.lighthouse.plugin.ApplicationPlugin;
-import net.javaci.lighthouse.plugin.PluginService;
-import net.javaci.lighthouse.plugin.PluginServiceFactory;
+import net.javaci.lighthouse.node.command.Command;
+import net.javaci.lighthouse.node.output.CommandOutput;
+import net.javaci.lighthouse.node.request.CommandFactory;
+import net.javaci.lighthouse.node.request.CommandRequest;
 import org.jboss.netty.channel.*;
-
-import java.util.Iterator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * User: ekocaman
  * Date: 5/27/13
  */
 public class ClientHandler extends SimpleChannelUpstreamHandler {
+    private static Logger logger = LoggerFactory.getLogger(ClientHandler.class);
 
     @Override
     public void handleUpstream(ChannelHandlerContext ctx, ChannelEvent e) throws Exception {
@@ -22,7 +22,7 @@ public class ClientHandler extends SimpleChannelUpstreamHandler {
 
     @Override
     public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
-        System.out.println("Connected");
+        logger.info("Connected to the server");
 
         super.channelConnected(ctx, e);
     }
@@ -31,22 +31,26 @@ public class ClientHandler extends SimpleChannelUpstreamHandler {
     public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
         System.out.println("I got message from SERVER : " + e.getMessage());
 
-        if (e.getMessage() instanceof InitializePluginsCommand) {
-            PluginService pluginService = PluginServiceFactory.createPluginService();
+        if (e.getMessage() instanceof CommandRequest) {
+            CommandRequest request = (CommandRequest) e.getMessage();
+            Command command = CommandFactory.getInstance().getCommand(request);
 
-            Iterator<ApplicationPlugin> iter = pluginService.getPlugins();
+            if (command == null) {
+                logger.error("Command not identified : " + request);
+            } else {
+                command.init();
+                CommandOutput output = command.execute(ctx.getChannel(), request.getParameters());
 
-            while (iter.hasNext()) {
-                ApplicationPlugin plugin = pluginService.getPlugins().next();
-                plugin.init();
-                ctx.getChannel().write(new GetSystemTimeCommand("Name : " + plugin.getName()));
+                ctx.getChannel().write(output);
             }
+        } else {
+            logger.error("Wrong Object received. It should be " + CommandRequest.class + " Type");
         }
     }
 
     @Override
     public void channelClosed(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
         super.channelClosed(ctx, e);
-
+        System.out.println("Closed");
     }
 }

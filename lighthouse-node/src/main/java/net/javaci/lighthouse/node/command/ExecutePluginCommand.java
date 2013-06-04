@@ -3,32 +3,26 @@ package net.javaci.lighthouse.node.command;
 import net.javaci.lighthouse.node.output.CommandOutput;
 import org.jboss.netty.channel.Channel;
 
-import java.util.Date;
 import java.util.HashMap;
 
 /**
  * User: ekocaman
- * Date: 5/28/13
+ * Date: 6/4/13
  */
-public class GetSystemTimeCommand extends Command {
+public class ExecutePluginCommand extends Command {
 
     private String message;
-    private Date date = new Date();
 
-    public GetSystemTimeCommand(String message) {
+    public ExecutePluginCommand(String message) {
         this.message = message;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
     public void execute() {
-        System.out.println("System Time" + date);
+        System.out.println("Executing InitializePluginsCommand : " + message);
     }
 
     public String toString() {
-        return " Message: " + message + " " + date.getTime();
+        return "InitializePluginsCommand : " + message;
     }
 
     @Override

@@ -9,6 +9,9 @@ import org.jboss.netty.handler.codec.serialization.ClassResolvers;
 import org.jboss.netty.handler.codec.serialization.ObjectDecoder;
 import org.jboss.netty.handler.codec.serialization.ObjectEncoder;
 import org.jboss.netty.handler.logging.LoggingHandler;
+import org.jboss.netty.handler.timeout.IdleStateHandler;
+import org.jboss.netty.util.HashedWheelTimer;
+import org.jboss.netty.util.Timer;
 
 /**
  * User: ekocaman
@@ -20,6 +23,9 @@ public class ClientPipelineFactory implements ChannelPipelineFactory {
     private static final ChannelHandler STR_DECODER = new ObjectDecoder(ClassResolvers.weakCachingConcurrentResolver(null));
     private static final ChannelHandler APP_HANDLER = new ClientHandler();
     private static final ChannelHandler LOG_HANDLER = new LoggingHandler();
+    private static final ChannelHandler HEART_BEAT = new HeartbeatHandler();
+    private static final Timer idleTimer = new HashedWheelTimer();
+    private static final ChannelHandler IDLE_HANDLER = new IdleStateHandler(idleTimer, 50, 50, 50);
 
     public ChannelPipeline getPipeline() throws Exception {
         // create default pipeline from static method
@@ -34,6 +40,9 @@ public class ClientPipelineFactory implements ChannelPipelineFactory {
 //        pipeline.addLast("framer", new DelimiterBasedFrameDecoder(...));
 
         // add string encoder (downstream) /decoders (upstream)
+
+        pipeline.addLast("timeout", IDLE_HANDLER);
+        pipeline.addLast("heartbeatHandler", HEART_BEAT);
         pipeline.addLast("decoder", STR_DECODER);
         pipeline.addLast("encoder", STR_ENCODER);
 
