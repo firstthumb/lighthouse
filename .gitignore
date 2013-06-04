@@ -2,13 +2,18 @@ lighthouse-android-client/target/
 lighthouse-android-client/gen/**
 lighthouse-android-client/.settings/
 
+lighthouse-frontend/.idea
 lighthouse-frontend/target/
 lighthouse-frontend/lighthouse-soapui-project.xml
 lighthouse-frontend/projectFilesBackup/
 
 lighthouse-node/.idea
-lighthouse-node/target
-lighthouse-node/*.iml
+lighthouse-node/lighthouse-node-api/.idea
+lighthouse-node/lighthouse-node-api/target
+lighthouse-node/lighthouse-node-api/*.iml
+lighthouse-node/lighthouse-node-core/.idea
+lighthouse-node/lighthouse-node-core/target
+lighthouse-node/lighthouse-node-core/*.iml
 
 lighthouse-plugin/.idea
 lighthouse-plugin/lighthouse-plugin-api/*.iml
