@@ -8,17 +8,23 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>lighthouse-impl</artifactId>
+    <artifactId>lighthouse-plugin-impl</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>lighthouse-impl</name>
+    <name>lighthouse-plugin-impl</name>
     <url>http://www.javaci.net</url>
 
 
     <dependencies>
         <dependency>
             <groupId>net.javaci.lighthouse</groupId>
-            <artifactId>lighthouse-api</artifactId>
+            <artifactId>lighthouse-plugin-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.javaci.lighthouse</groupId>
+            <artifactId>lighthouse-plugin-example</artifactId>
             <version>${project.version}</version>
         </dependency>
 

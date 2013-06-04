@@ -11,6 +11,7 @@ import org.jboss.netty.handler.codec.string.StringDecoder;
 import org.jboss.netty.handler.codec.string.StringEncoder;
 
 import java.net.InetSocketAddress;
+import java.util.Date;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -28,18 +29,7 @@ public class Client {
         ChannelFactory factory = new NioClientSocketChannelFactory(bossPool, workerPool);
         this.bootstrap = new ClientBootstrap(factory);
 
-        this.bootstrap.setPipelineFactory(new MyPipelineFactory());
-
-        // Declared outside to fit under 80 char limit
-//        final DelimiterBasedFrameDecoder frameDecoder = new DelimiterBasedFrameDecoder(Integer.MAX_VALUE, Delimiters.lineDelimiter());
-//        this.bootstrap.setPipelineFactory(new ChannelPipelineFactory() {
-//            public ChannelPipeline getPipeline() throws Exception {
-//                return Channels.pipeline(
-//                        frameDecoder,
-//                        new StringEncoder(),
-//                        new ClientHandler());
-//            }
-//        });
+        this.bootstrap.setPipelineFactory(new ClientPipelineFactory());
 
         ChannelFuture future = this.bootstrap.connect(new InetSocketAddress("localhost", 7856));
         if (!future.awaitUninterruptibly().isSuccess()) {
@@ -48,14 +38,14 @@ public class Client {
             return false;
         }
 
-        future.addListener(new ChannelFutureListener() {
-            @Override
-            public void operationComplete(ChannelFuture channelFuture) throws Exception {
-                if (channelFuture.isSuccess()) {
-                    channelFuture.getChannel().write("MessageFromClient");
-                }
-            }
-        });
+//        future.addListener(new ChannelFutureListener() {
+//            @Override
+//            public void operationComplete(ChannelFuture channelFuture) throws Exception {
+//                if (channelFuture.isSuccess()) {
+//                    channelFuture.getChannel().write("MessageFromClient");
+//                }
+//            }
+//        });
 
         this.connector = future.getChannel();
         return this.connector.isConnected();
@@ -83,10 +73,16 @@ public class Client {
         return false;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Client client = new Client();
         client.start();
 
-        client.sendMessage(new GetSystemTimeCommand());
+        client.sendMessage(new GetSystemTimeCommand("Starter"));
+
+        for (int i=0; i<10; i++) {
+            Thread.sleep(3000);
+            System.out.println("Message sent : " + new Date().getTime());
+            client.sendMessage(new GetSystemTimeCommand(i + ""));
+        }
     }
 }

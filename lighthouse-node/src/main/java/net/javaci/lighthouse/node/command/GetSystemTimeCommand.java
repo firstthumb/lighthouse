@@ -8,12 +8,23 @@ import java.util.Date;
  */
 public class GetSystemTimeCommand extends Command {
 
+    private String message;
+    private Date date = new Date();
+
+    public GetSystemTimeCommand(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
     @Override
     public void execute() {
-        System.out.println("System Time" + new Date());
+        System.out.println("System Time" + date);
     }
 
     public String toString() {
-        return this + " : " + new Date();
+        return " Message: " + message + " " + date.getTime();
     }
 }
