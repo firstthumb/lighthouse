@@ -1,5 +1,0 @@
-Manifest-Version: 1.0
-Ant-Version: Apache Ant 1.8.3
-Created-By: 1.6.0_43-b01-447-11M4203 (Apple Inc.)
-Class-Path: lib/c3p0-0.9.1.2.jar lib/commons-logging-api-1.1.jar lib/commons-management-1.0.jar lib/json-20090211.jar lib/log4j-1.2.16.jar lib/mysql-connector-java-5.1.14.jar lib/netty-3.2.7.Final.jar lib/spy memcached-2.7.jar lib/tools.jar
-Main-Class: net.peakgames.tavla.server.GServerStarter
