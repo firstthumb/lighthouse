@@ -3,10 +3,17 @@ package net.javaci.lighthouse.frontend.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * User: ekocaman
  * Date: 4/22/13
  */
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 @Document(collection = "servers")
 public class ServerModel {
     @Id

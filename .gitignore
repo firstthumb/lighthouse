@@ -1,3 +1,5 @@
+lighthouse-parent/.idea
+
 lighthouse-android-client/target/
 lighthouse-android-client/gen/**
 lighthouse-android-client/.settings/

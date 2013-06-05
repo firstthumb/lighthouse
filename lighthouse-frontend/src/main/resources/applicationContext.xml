@@ -17,8 +17,8 @@
         </property>
     </bean>
 
-    <mongo:mongo host="127.0.0.1" port="27017"/>
-    <mongo:db-factory dbname="yourdb"/>
+    <mongo:mongo host="${mongodb.url}" port="${mongodb.port}"/>
+    <mongo:db-factory id="mongoDbFactory" dbname="${mongodb.name}"/>
 
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
         <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
@@ -53,6 +53,6 @@
 
     <bean class="net.javaci.lighthouse.frontend.context.SpringApplicationContext"></bean>
 
-    <bean id="processDao" class="net.javaci.lighthouse.frontend.dao.ProcessDaoImpl"></bean>
+    <!--<bean id="processDao" class="net.javaci.lighthouse.frontend.dao.ProcessDaoImpl"></bean>-->
 
 </beans>
